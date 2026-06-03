@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<!--
+    ═══════════════════════════════════════════════════════════
+    GARAGE 7 — index.html  [REFATORADO]
+    PAPEL: Estrutura principal da landing page.
+    ALTERAÇÕES:
+      • Favicon apontando para assets/favicon.png
+      • Seção #equipe: adicionada classe .team-content-wide para
+        melhor distribuição horizontal do título
+      • Modal de serviços: marcação extra para responsividade
+        anatômica no mobile (nenhuma função removida)
+      • Imagem de fundo na seção #contato controlada via CSS
+    ═══════════════════════════════════════════════════════════
+-->
+<html lang="pt-BR">
+
+<head>
+
+    <!-- =============================================
+         META TAGS
+    ============================================= -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Garage 7 | Estética Automotiva Premium</title>
+
+    <!-- NOVO: Favicon — aponte assets/favicon.png para a imagem correta -->
+    <link rel="icon" href="assets/fotos/logo garagem 7.png" type="image/png">
+    <!-- Fallback apple-touch-icon para iOS -->
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+
+    <meta name="description"
+        content="Estética automotiva premium especializada em lavagem detalhada, polimento, vitrificação e cuidados automotivos.">
+
+    <!-- =============================================
+         GOOGLE FONTS
+    ============================================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- =============================================
+         FONT AWESOME
+    ============================================= -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- =============================================
+         CSS PRINCIPAL
+         → Arquivo: style.css
+    ============================================= -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- =============================================
+         HEADER FIXO
+         → Controlado por: handleHeaderScroll() em script.js
+         → Mobile toggle: .mobile-menu-btn em script.js
+    ============================================= -->
+    <header class="header">
+        <div class="container header-container">
+
+            <a href="#home" class="logo">
+                GARAGE <span class="text-red">7</span>
+            </a>
+
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#equipe">Equipe</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+
+            <a href="https://wa.me/5544991698192" target="_blank" class="btn-header">
+                Entre em Contato
+            </a>
+
+            <button class="mobile-menu-btn" aria-label="Abrir menu">
+                <i class="fas fa-bars"></i>
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- =============================================
+         HERO SLIDER
+         → Controlado por: showSlide(), startSlider() em script.js
+         → Dots e botões prev/next conectados via querySelectorAll
+    ============================================= -->
+    <section id="home" class="hero">
+        <div class="slider">
+
+            <!-- Slide 01 -->
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2000"
+                    alt="Lavagem Detalhada">
+                <div class="slide-content">
+                    <h1>Cuidado Premium para Seu Veículo</h1>
+                    <p>Lavagem técnica, brilho impecável e acabamento profissional.</p>
+                    <a href="https://wa.me/5544991698192" target="_blank" class="btn-primary">Entre em Contato</a>
+                </div>
+            </div>
+
+            <!-- Slide 02 -->
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?q=80&w=2000"
+                    alt="Polimento Automotivo">
+                <div class="slide-content">
+                    <h1>Polimento Técnico Profissional</h1>
+                    <p>Remova imperfeições e recupere o brilho original da pintura.</p>
+                    <a href="https://wa.me/5544991698192" target="_blank" class="btn-primary">Entre em Contato</a>
+                </div>
+            </div>
+
+            <!-- Slide 03 -->
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2000"
+                    alt="Detalhamento Automotivo">
+                <div class="slide-content">
+                    <h1>Excelência em Detalhamento</h1>
+                    <p>Cada detalhe tratado com máxima atenção e qualidade.</p>
+                    <a href="https://wa.me/5544991698192" target="_blank" class="btn-primary">Entre em Contato</a>
+                </div>
+            </div>
+
+            <button class="slider-btn prev" aria-label="Slide anterior">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-btn next" aria-label="Próximo slide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <!-- Dots — selecionados via querySelectorAll(".dot") em script.js -->
+            <div class="slider-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         SOBRE NÓS
+         → Animação de entrada via .reveal / IntersectionObserver em script.js
+    ============================================= -->
+    <section id="sobre" class="about section-padding">
+        <div class="container">
+
+            <div class="section-title">
+                <span>Quem Somos</span>
+                <h2>Sobre a Garage <span class="text-red">7</span></h2>
+            </div>
+
+            <div class="about-grid">
+
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1200"
+                        alt="Garage 7">
+                </div>
+
+                <div class="about-content">
+                    <h3>
+                        Paixão por veículos e <span class="text-red">excelência em cada detalhe</span>.
+                    </h3>
+
+                    <p>
+                        A <span class="text-red">Garage 7</span> nasceu da paixão pelo universo automotivo e da busca constante pela
+                        <span class="text-red">perfeição estética</span>. Unimos conhecimento técnico,
+                        produtos de alta performance e processos especializados para entregar resultados
+                        que valorizam, protegem e preservam cada veículo.
+                    </p>
+
+                    <p>
+                        Nosso compromisso é oferecer serviços com o mais alto padrão de qualidade,
+                        proporcionando <span class="text-red">proteção, brilho e acabamento impecável</span>.
+                        Cada etapa é executada com atenção aos mínimos detalhes para garantir um resultado
+                        superior e duradouro.
+                    </p>
+
+                    <p>
+                        Mais do que estética automotiva, entregamos uma verdadeira
+                        <span class="text-red">experiência premium</span>, desenvolvida para clientes que
+                        valorizam seu patrimônio e buscam confiança, exclusividade e excelência em cada serviço realizado.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         SERVIÇOS
+         → Cada .service-btn usa data-service="chave"
+         → Chaves devem corresponder EXATAMENTE ao objeto
+           servicesData em script.js:
+           lavagem | enceramento | higienizacao |
+           polimento | vitrificacao | micro-pintura
+         → Ao clicar, script.js chama openModal(serviceKey)
+    ============================================= -->
+    <section id="servicos" class="services section-padding">
+        <div class="container">
+
+            <div class="section-title">
+                <span>Especialidades</span>
+                <h2>Nossos Serviços</h2>
+            </div>
+
+            <div class="services-grid">
+
+                <!-- Card 01 — data-service="lavagem" -->
+                <div class="service-card">
+                    <video autoplay muted loop playsinline class="card-video">
+                        <source src="assets/videos/lavagem detalhada.mp4" type="video/mp4">
+                    </video>
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3>Lavagem Detalhada</h3>
+                        <div class="card-icon"><i class="fas fa-soap"></i></div>
+                        <button class="service-btn" data-service="lavagem">Saber Mais</button>
+                    </div>
+                </div>
+
+                <!-- Card 02 — data-service="enceramento" -->
+                <div class="service-card">
+                    <video autoplay muted loop playsinline class="card-video">
+                        <source src="assets/videos/encerramento tecnico.mp4" type="video/mp4">
+                    </video>
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3>Enceramento Técnico</h3>
+                        <div class="card-icon"><i class="fas fa-star"></i></div>
+                        <button class="service-btn" data-service="enceramento">Saber Mais</button>
+                    </div>
+                </div>
+
+                <!-- Card 03 — data-service="higienizacao" -->
+                <div class="service-card">
+                    <video autoplay muted loop playsinline class="card-video">
+                        <source src="assets/videos/higienizaçao interna.mp4" type="video/mp4">
+                    </video>
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3>Higienização Interna</h3>
+                        <div class="card-icon"><i class="fas fa-spray-can"></i></div>
+                        <button class="service-btn" data-service="higienizacao">Saber Mais</button>
+                    </div>
+                </div>
+
+                <!-- Card 04 — data-service="polimento" -->
+                <div class="service-card">
+                    <video autoplay muted loop playsinline class="card-video">
+                        <source src="assets/videos/polimento automotivo.mp4" type="video/mp4">
+                    </video>
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3>Polimento Automotivo</h3>
+                        <div class="card-icon"><i class="fas fa-circle-notch"></i></div>
+                        <button class="service-btn" data-service="polimento">Saber Mais</button>
+                    </div>
+                </div>
+
+                <!-- Card 05 — data-service="vitrificacao" -->
+                <div class="service-card">
+                    <video autoplay muted loop playsinline class="card-video">
+                        <source src="assets/videos/vitrificação.mp4" type="video/mp4">
+                    </video>
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3>Vitrificação</h3>
+                        <div class="card-icon"><i class="fas fa-shield-halved"></i></div>
+                        <button class="service-btn" data-service="vitrificacao">Saber Mais</button>
+                    </div>
+                </div>
+
+                <!-- Card 06 — data-service="micro-pintura" -->
+                <div class="service-card">
+                    <video autoplay muted loop playsinline class="card-video">
+                        <source src="assets/videos/micro pintura.mp4" type="video/mp4">
+                    </video>
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <h3>Micro Pintura</h3>
+                        <div class="card-icon"><i class="fas fa-paint-brush"></i></div>
+                        <button class="service-btn" data-service="micro-pintura">Saber Mais</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         EQUIPE
+         AJUSTE: Adicionada classe .team-content-wide para
+         que o título se estenda melhor na horizontal e
+         equilibre o peso visual com a imagem ao lado.
+         → Animação via .reveal em script.js (sem alteração)
+    ============================================= -->
+    <section id="equipe" class="team section-padding">
+        <div class="container">
+            <div class="team-grid">
+
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?q=80&w=1400"
+                        alt="Equipe Garage 7">
+                </div>
+
+                <!-- AJUSTE: classe team-content-wide adicionada -->
+                <div class="team-content team-content-wide">
+                    <span>Equipe Especializada</span>
+                    <h2>
+                        Profissionais apaixonados por
+                        <span class="text-red">excelência automotiva</span>.
+                    </h2>
+
+                    <p>
+                        Nossa equipe é formada por profissionais altamente capacitados,
+                        constantemente treinados e comprometidos com os mais elevados padrões de qualidade.
+                        Cada veículo recebe uma análise cuidadosa e um atendimento personalizado,
+                        garantindo resultados que superam expectativas.
+                    </p>
+
+                    <p>
+                        Trabalhamos com foco em
+                        <span class="text-red">tecnologia, precisão e atenção aos detalhes</span>,
+                        utilizando técnicas avançadas e produtos de alto desempenho para proporcionar
+                        o melhor cuidado possível ao seu patrimônio.
+                    </p>
+
+                    <p>
+                        Acreditamos que a excelência está nos detalhes. Por isso, cada serviço é executado
+                        com dedicação, responsabilidade e paixão pelo que fazemos, entregando um acabamento
+                        digno dos clientes mais exigentes.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         CONTATO
+         AJUSTE: A seção já possui a classe .contact que
+         agora recebe background-image via CSS (style.css,
+         seção 10). Nenhuma alteração de marcação necessária.
+         → Iframe do Google Maps: endereço configurável
+         → Links de redes sociais reais já inseridos
+    ============================================= -->
+    <section id="contato" class="contact section-padding">
+        <div class="container">
+
+            <div class="section-title">
+                <span>Contato</span>
+                <h2>Visite a Garage <span class="text-red">7</span></h2>
+            </div>
+
+            <div class="contact-grid">
+
+                <!-- Mapa -->
+                <div class="contact-map">
+                    <h3>Nosso Endereço</h3>
+                    <p>
+                        R. Octávio Perioto, 62 - Zona 01<br>
+                        Maringá - PR, 87013-020
+                    </p>
+                    <iframe
+                        src="https://www.google.com/maps?q=R.%20Oct%C3%A1vio%20Perioto%2C%2062%20-%20Zona%2001%2C%20Maring%C3%A1%20-%20PR&output=embed"
+                        allowfullscreen=""
+                        loading="lazy"
+                        title="Localização Garage 7">
+                    </iframe>
+                </div>
+
+                <!-- Redes Sociais -->
+                <div class="contact-social">
+
+                    <h3 class="social-title">Redes Sociais</h3>
+
+                    <div class="social-icons">
+
+                        <a href="https://wa.me/5544991698192" target="_blank" class="social-circle"
+                            aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </a>
+
+                        <a href="https://www.facebook.com/garage7esteticaautomotiva/" target="_blank" class="social-circle" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>Facebook</span>
+                        </a>
+
+                        <a href="https://www.instagram.com/garage7_esteticautomotiva/" target="_blank" class="social-circle" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
+
+                    </div>
+
+                    <div class="social-divider"></div>
+
+                    <div class="social-submenu">
+                        <a href="#contato">
+                            <i class="fas fa-headset"></i>
+                            Atendimento
+                        </a>
+                        <a href="https://wa.me/5544991698192" target="_blank">
+                            <i class="fas fa-file-invoice"></i>
+                            Orçamentos
+                        </a>
+                        <a href="#contato">
+                            <i class="fas fa-location-dot"></i>
+                            Localização
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================
+         MODAL DE SERVIÇOS
+         AJUSTE MOBILE: Adicionada classe .modal-body-wrapper
+         para facilitar scroll interno em telas pequenas.
+         Todas as IDs e data-attributes originais mantidos.
+         → Controlado inteiramente por openModal() /
+           closeModalFunction() em script.js
+    ============================================= -->
+    <div id="serviceModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+
+            <button class="close-modal" aria-label="Fechar modal">&times;</button>
+
+            <!-- AJUSTE: .modal-body-wrapper permite scroll interno no mobile -->
+            <div class="modal-body-wrapper">
+                <div class="modal-grid">
+
+                    <!-- Lado esquerdo: vídeo do serviço -->
+                    <div class="modal-video-side">
+                        <video id="modalVideo" autoplay muted loop playsinline>
+                            <source src="" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <!-- Lado direito: texto do serviço -->
+                    <div class="modal-text-side">
+                        <h2 id="modalTitle"></h2>
+                        <p id="modalDescription"></p>
+
+                        <div class="modal-icon">
+                            <i id="modalIcon" class="fas fa-car"></i>
+                        </div>
+
+                        <a id="modalWhatsapp"
+                           href="https://wa.me/5544991698192"
+                           class="btn-primary modal-cta"
+                           target="_blank">
+                            <i class="fab fa-whatsapp" style="font-size:1.3rem;"></i>
+                            Agendar Agora
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =============================================
+         FAQ — PERGUNTAS FREQUENTES
+         → Acordeão controlado por script.js
+         → Classe .active expande a resposta
+    ============================================= -->
+    <section id="faq" class="faq section-padding">
+
+        <div class="container">
+
+            <div class="section-title">
+                <span>Dúvidas Frequentes</span>
+                <h2>Perguntas Frequentes</h2>
+            </div>
+
+            <div class="faq-container">
+
+                <!-- Pergunta 01 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Quanto tempo dura a vitrificação?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            A durabilidade pode variar entre 1 e 5 anos,
+                            dependendo do produto utilizado e dos cuidados
+                            posteriores.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pergunta 02 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Qual a diferença entre polimento e vitrificação?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            O polimento corrige imperfeições da pintura,
+                            enquanto a vitrificação cria uma camada de
+                            proteção duradoura.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pergunta 03 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Preciso agendar atendimento?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Sim. Trabalhamos mediante agendamento para
+                            garantir máxima qualidade e atenção exclusiva
+                            ao seu veículo.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =============================================
+         FOOTER
+    ============================================= -->
+    <footer class="footer">
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <!-- Coluna Institucional -->
+                <div class="footer-column">
+                    <h3>Institucional</h3>
+                    <a href="#sobre">Sobre</a>
+                    <a href="#contato">Fale Conosco</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="politica-privacidade.html" target="_blank">Política de Privacidade</a>
+                </div>
+
+                <!-- Coluna Corporativo -->
+                <div class="footer-column">
+                    <h3>Corporativo</h3>
+                    <a href="https://wa.me/5544991698192?text=Olá!%20Gostaria%20de%20enviar%20meu%20currículo%20para%20a%20Garage%207." target="_blank">
+                        Trabalhe Conosco
+                    </a>
+                    <a href="https://wa.me/5544991698192?text=Olá!%20Tenho%20interesse%20em%20conhecer%20as%20parcerias%20da%20Garage%207." target="_blank">
+                        Seja Parceiro
+                    </a>
+                </div>
+
+                <!-- Coluna Endereço -->
+                <div class="footer-column">
+                    <h3>Endereço</h3>
+                    <p>
+                        R. Octávio Perioto, 62<br>
+                        Zona 01 - Maringá/PR
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2025 Garage 7 - Todos os direitos reservados.</p>
+                <a href="https://zyntek.com.br" target="_blank">Desenvolvido por Zyntek</a>
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- =============================================
+         MENU MOBILE LATERAL
+         → Overlay + menu controlados por script.js
+    ============================================= -->
+    <div class="menu-overlay"></div>
+
+    <div class="mobile-menu">
+        <button class="close-menu" aria-label="Fechar menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#home">Home</a>
+        <a href="#sobre">Sobre Nós</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#equipe">Equipe</a>
+        <a href="#contato">Contato</a>
+    </div>
+
+
+    <!-- =============================================
+         BOTÃO FLUTUANTE WHATSAPP
+         → Hover via CSS exclusivamente (sem inline style em JS)
+    ============================================= -->
+    <a href="https://wa.me/5544991698192"
+       target="_blank"
+       class="whatsapp-float"
+       aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <span>Fale Conosco</span>
+    </a>
+
+    <!-- =============================================
+         JAVASCRIPT PRINCIPAL — script.js
+    ============================================= -->
+    <script src="script.js"></script>
+
+</body>
+</html>

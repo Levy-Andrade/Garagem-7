@@ -1,0 +1,1381 @@
+/* =============================================================
+   GARAGE 7 — style.css  [REFATORADO]
+   PAPEL: Folha de estilos principal da landing page.
+
+   ALTERAÇÕES E CORREÇÕES DESTA VERSÃO:
+     1. Seção 9 (.team): Adicionada regra .team-content-wide
+        para distribuir melhor o título horizontalmente,
+        eliminando a quebra de linha prematura e o excesso de
+        espaço vazio ao lado da imagem.
+     2. Seção 10 (.contact): background-image adicionado com
+        foto automotiva escurecida por overlay, mantendo
+        legibilidade dos textos internos.
+     3. Seção 11 (.modal): Refatoração completa do bloco
+        responsivo. Adicionadas regras para .modal-body-wrapper
+        (scroll interno mobile), .modal-cta (botão de ação
+        centralizado) e ajuste de min-height no vídeo mobile
+        para evitar overflow.
+     4. Todas as correções anteriores (duplicatas removidas,
+        .service-btn unificado) mantidas intactas.
+============================================================= */
+
+
+/* =============================================================
+   1. RESET
+============================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #E10600 transparent;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #050505;
+    color: #ffffff;
+    overflow-x: hidden;
+    line-height: 1.8;
+    font-size: 18px;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+
+/* =============================================================
+   2. VARIÁVEIS GLOBAIS
+============================================================= */
+
+:root {
+    --black:      #050505;
+    --dark:       #121212;
+    --card:       #1a1a1a;
+    --gray:       #999999;
+    --white:      #ffffff;
+
+    --red:        #E10600;
+    --red-hover:  #ff2d26;
+
+    --shadow:     0 10px 40px rgba(0, 0, 0, .45);
+    --transition: all .3s ease;
+    --radius:     16px;
+    --container:  1280px;
+}
+
+
+/* =============================================================
+   3. SCROLLBAR PERSONALIZADA (Chrome/Edge/Opera)
+============================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #E10600;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff2d26;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+
+/* =============================================================
+   4. UTILITÁRIOS
+============================================================= */
+
+.container {
+    width: 90%;
+    max-width: var(--container);
+    margin: auto;
+}
+
+.section-padding {
+    padding: 120px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.section-title span {
+    color: var(--red);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.section-title h2 {
+    margin-top: 10px;
+    font-size: clamp(2.8rem, 4vw, 4rem);
+    font-weight: 900;
+}
+
+.text-red {
+    color: var(--red);
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: var(--red);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    font-weight: 700;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(225, 6, 0, .55);
+}
+
+
+/* =============================================================
+   5. HEADER
+============================================================= */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background: rgba(0, 0, 0, .45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, .05);
+    transition: var(--transition);
+}
+
+.header-container {
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: var(--red);
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+}
+
+.nav-links a {
+    position: relative;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--red);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--red);
+    transition: var(--transition);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.btn-header {
+    background: var(--red);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+.btn-header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(225, 6, 0, .4);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+
+/* =============================================================
+   6. HERO SLIDER
+============================================================= */
+
+.hero {
+    height: 100vh;
+}
+
+.slider {
+    position: relative;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .8s ease, visibility .8s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .55));
+}
+
+.slide-content {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    max-width: 700px;
+    z-index: 2;
+}
+
+.slide-content h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px rgba(225, 6, 0, .35);
+}
+
+.slide-content p {
+    font-size: 1.2rem;
+    margin-bottom: 35px;
+    color: #e8e8e8;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55px;
+    height: 55px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+    z-index: 5;
+    transition: var(--transition);
+}
+
+.slider-btn:hover {
+    background: var(--red);
+}
+
+.prev { left: 30px; }
+.next { right: 30px; }
+
+.slider-dots {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #777;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.dot.active {
+    background: var(--red);
+}
+
+
+/* =============================================================
+   7. SOBRE NÓS
+============================================================= */
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-image img {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.about-content h3 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    color: #d0d0d0;
+    margin-bottom: 20px;
+}
+
+
+/* =============================================================
+   8. SERVIÇOS
+============================================================= */
+
+.services {
+    background: #0d0d0d;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.service-card {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    border-radius: 20px;
+    cursor: pointer;
+    background: #111;
+    transition: .5s;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--red);
+    transform: scaleX(0);
+    transition: var(--transition);
+    z-index: 6;
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.card-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .9));
+    transition: .5s;
+}
+
+.card-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.card-content h3 {
+    font-size: 2rem;
+    color: #fff;
+    transition: .5s;
+}
+
+.card-icon {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    color: #fff;
+    font-size: 2rem;
+    transition: .5s;
+}
+
+/* =============================================================
+   BOTÃO "SABER MAIS" — unificado (posição + estilo visual)
+============================================================= */
+.service-btn {
+    position: absolute;
+    bottom: -60px;
+    opacity: 0;
+    transition: .5s;
+
+    padding: 14px 30px;
+    border: none;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    width: auto;
+}
+
+.service-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(225, 6, 0, .5);
+}
+
+.service-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow:
+        0 0 20px rgba(225, 6, 0, .5),
+        0 0 50px rgba(225, 6, 0, .25),
+        0 0 80px rgba(225, 6, 0, .15);
+}
+
+.service-card:hover .card-overlay {
+    background: linear-gradient(rgba(225, 6, 0, .25), rgba(0, 0, 0, .9));
+}
+
+.service-card:hover .card-content h3 {
+    color: var(--red);
+}
+
+.service-card:hover .card-icon {
+    color: var(--red);
+    transform: scale(1.2);
+}
+
+.service-card:hover .service-btn {
+    bottom: 25px;
+    opacity: 1;
+}
+
+
+/* =============================================================
+   9. EQUIPE
+   AJUSTE: .team-content-wide estende o título horizontalmente,
+   eliminando quebra precoce e equilibrando o peso visual com
+   a imagem à esquerda.
+============================================================= */
+
+.team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.team-image img {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.team-content span {
+    color: var(--red);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.team-content h2 {
+    font-size: 3.2rem;
+    margin: 15px 0 25px;
+
+    /* AJUSTE ANTERIOR: word-break forçava quebra cedo */
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
+/*
+ * NOVO: .team-content-wide garante que o título use toda
+ * a largura disponível da coluna, sem quebra prematura.
+ * Definido no HTML como classe adicional em .team-content.
+ */
+.team-content-wide h2 {
+    font-size: clamp(2.4rem, 3.2vw, 3.6rem);
+    line-height: 1.2;
+    max-width: 100%;
+    hyphens: none;
+}
+
+.team-content p {
+    color: #d2d2d2;
+    margin-bottom: 20px;
+}
+
+
+/* =============================================================
+   10. CONTATO
+   AJUSTE: background-image automotiva adicionada com overlay
+   escuro duplo para manter legibilidade dos cards internos.
+   A imagem do Unsplash tem temática de garagem/pintura.
+============================================================= */
+
+.contact {
+    position: relative;
+
+    /*
+     * NOVO: background-image com overlay escuro.
+     * O primeiro gradiente escurece a foto para ~88–92%
+     * de opacidade, preservando a leitura do conteúdo.
+     * Substitua a URL por uma imagem local se preferir:
+     *   url("assets/images/contact-bg.jpg")
+     */
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, .88),
+            rgba(0, 0, 0, .92)
+        ),
+        url("https://images.unsplash.com/photo-1607860108855-64acf2078ed9?q=80&w=2000")
+        center center / cover no-repeat fixed;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: stretch;
+}
+
+.contact-map,
+.contact-social {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 650px;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 35px;
+    border: 1px solid rgba(255, 255, 255, .05);
+}
+
+.contact-map h3,
+.social-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.contact-map p {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    color: #d4d4d4;
+}
+
+.contact-map iframe {
+    width: 100%;
+    height: 350px;
+    border: none;
+    border-radius: 12px;
+    flex: 1;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.social-circle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    transition: .4s;
+}
+
+.social-circle i {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid rgba(225, 6, 0, .7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #fff;
+    transition: .4s;
+}
+
+.social-circle span {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.social-circle:hover i {
+    background: var(--red);
+    border-color: var(--red);
+    transform: translateY(-8px) scale(1.1);
+    box-shadow:
+        0 0 25px rgba(225, 6, 0, .5),
+        0 0 50px rgba(225, 6, 0, .25);
+}
+
+.social-circle:hover span {
+    color: var(--red);
+}
+
+.social-divider {
+    width: 100%;
+    height: 1px;
+    margin: 50px 0;
+    background: linear-gradient(to right, transparent, rgba(225, 6, 0, .5), transparent);
+}
+
+.social-submenu {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.social-submenu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.social-submenu a:hover {
+    color: var(--red);
+}
+
+.social-submenu i {
+    color: var(--red);
+    font-size: 1.3rem;
+}
+
+
+/* =============================================================
+   11. MODAL DE SERVIÇOS
+   AJUSTE MOBILE:
+     • .modal-body-wrapper: permite scroll interno quando o
+       conteúdo excede a altura da tela em dispositivos pequenos.
+     • .modal-cta: garante que o botão "Agendar Agora" fique
+       sempre visível, centralizado e confortável ao toque.
+     • Regras @media revisadas para evitar overflow horizontal.
+============================================================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .85);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+    animation: fadeIn .3s ease;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 900px;
+    background: #111;
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    animation: modalUp .35s ease;
+
+    /* NOVO: garante que o modal não ultrapasse a altura da tela */
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    line-height: 1;
+    z-index: 2;
+}
+
+.close-modal:hover {
+    color: var(--red);
+}
+
+/*
+ * NOVO: .modal-body-wrapper permite scroll interno somente
+ * quando o conteúdo for maior que o modal box.
+ */
+.modal-body-wrapper {
+    overflow-y: auto;
+    flex: 1;
+    /* Scrollbar fina vermelha dentro do modal */
+    scrollbar-width: thin;
+    scrollbar-color: var(--red) transparent;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.modal-video-side video {
+    width: 100%;
+    height: 100%;
+    min-height: 450px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.modal-text-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    gap: 20px;
+}
+
+.modal-text-side h2 {
+    font-size: 2.5rem;
+    color: var(--red);
+}
+
+.modal-text-side p {
+    color: #ddd;
+    line-height: 1.8;
+}
+
+.modal-icon {
+    position: absolute;
+    right: 0;
+    bottom: 80px;
+    font-size: 3rem;
+    color: var(--red);
+    opacity: .3;
+}
+
+/*
+ * NOVO: .modal-cta — botão de ação com gap para o ícone
+ * do WhatsApp. No mobile torna-se 100% de largura para
+ * facilitar o clique.
+ */
+.modal-cta {
+    align-self: flex-start;
+}
+
+
+/* =============================================================
+   12. FOOTER
+============================================================= */
+
+.footer {
+    background: #050505;
+    border-top: 1px solid rgba(225, 6, 0, .2);
+    padding-top: 80px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    padding-bottom: 60px;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.footer-column h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.footer-column h3::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--red);
+    margin-top: 12px;
+}
+
+.footer-column a {
+    color: #ccc;
+    transition: .3s;
+}
+
+.footer-column a:hover {
+    color: var(--red);
+    transform: translateX(5px);
+}
+
+.footer-column p {
+    color: #ccc;
+    line-height: 1.8;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, .08);
+    padding: 30px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom p {
+    color: #999;
+    font-size: .95rem;
+}
+
+.footer-bottom a {
+    color: var(--red);
+    font-weight: 700;
+    transition: .3s;
+}
+
+.footer-bottom a:hover {
+    opacity: .8;
+}
+
+
+/* =============================================================
+   13. MENU MOBILE LATERAL
+============================================================= */
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 320px;
+    height: 100vh;
+    background: #111;
+    z-index: 9999;
+    padding: 100px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    transition: .4s;
+    border-left: 1px solid rgba(225, 6, 0, .2);
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+.mobile-menu a {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: .3s;
+}
+
+.mobile-menu a:hover {
+    color: var(--red);
+}
+
+.close-menu {
+    position: absolute;
+    top: 30px;
+    right: 25px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close-menu:hover {
+    color: var(--red);
+}
+
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .75);
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    z-index: 9998;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =============================================================
+   14. BOTÃO FLUTUANTE WHATSAPP
+============================================================= */
+
+.whatsapp-float {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 9999;
+    background: var(--red);
+    color: #fff;
+    height: 60px;
+    padding: 0 25px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 0 30px rgba(225, 6, 0, .45);
+    transition: .3s;
+}
+
+.whatsapp-float:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 40px rgba(225, 6, 0, .7);
+}
+
+.whatsapp-float i {
+    font-size: 26px;
+}
+
+.whatsapp-float span {
+    font-weight: 700;
+}
+
+
+/* =============================================================
+   15. ANIMAÇÕES
+============================================================= */
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes modalUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* =============================================================
+   16. SCROLL REVEAL
+============================================================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: .8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =============================================================
+   17. RESPONSIVO — TABLET (≤ 992px)
+============================================================= */
+
+@media (max-width: 992px) {
+
+    .about-grid,
+    .team-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-content h2,
+    .team-content-wide h2 {
+        font-size: 2.2rem;
+    }
+
+    .slide-content {
+        left: 5%;
+        right: 5%;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =============================================================
+   18. RESPONSIVO — MOBILE (≤ 768px)
+============================================================= */
+
+@media (max-width: 768px) {
+
+    /* Header */
+    .navbar      { display: none; }
+    .btn-header  { display: none; }
+    .mobile-menu-btn { display: block; }
+
+    /* Seções */
+    .section-padding { padding: 90px 0; }
+
+    /* Hero */
+    .slide-content h1 { font-size: 2.4rem; }
+    .slide-content p  { font-size: 1rem; }
+    .slider-btn       { width: 45px; height: 45px; }
+
+    /* Serviços */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ─── MODAL MOBILE ────────────────────────────────────
+     * Layout ajustado para uma única coluna, scroll interno
+     * habilitado via .modal-body-wrapper, botão CTA 100%
+     * de largura para facilitar o clique.
+     ──────────────────────────────────────────────────── */
+    .modal {
+        padding: 12px;
+        align-items: flex-end; /* sobe do fundo como sheet */
+    }
+
+    .modal.active {
+        align-items: center;
+    }
+
+    .modal-content {
+        padding: 20px 18px 24px;
+        border-radius: 20px;
+        max-height: 92vh;
+    }
+
+    /* Fecha o botão × dentro do padding do modal no mobile */
+    .close-modal {
+        top: 12px;
+        right: 14px;
+        font-size: 1.8rem;
+    }
+
+    /* Coluna única no modal mobile */
+    .modal-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* Vídeo mais compacto em telas pequenas */
+    .modal-video-side video {
+        min-height: 200px;
+        max-height: 240px;
+        border-radius: 12px;
+    }
+
+    /* Texto do modal: ajuste de tamanho e espaçamento */
+    .modal-text-side {
+        gap: 14px;
+    }
+
+    .modal-text-side h2 {
+        font-size: 1.7rem;
+    }
+
+    .modal-text-side p {
+        font-size: 0.95rem;
+    }
+
+    /* Ícone decorativo reposicionado para não sobrepor texto */
+    .modal-icon {
+        position: static;
+        font-size: 2rem;
+        opacity: .2;
+        align-self: flex-end;
+        margin-top: -10px;
+    }
+
+    /* Botão CTA ocupa 100% no mobile para facilitar clique */
+    .modal-cta {
+        align-self: stretch;
+        justify-content: center;
+        padding: 16px 20px;
+        font-size: 1rem;
+    }
+
+    /* Contato */
+    .social-submenu { gap: 20px; }
+
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .footer-column h3::after {
+        margin: 12px auto 0;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* WhatsApp float */
+    .whatsapp-float {
+        width: 65px;
+        height: 65px;
+        padding: 0;
+        justify-content: center;
+    }
+    .whatsapp-float span { display: none; }
+    .whatsapp-float i    { font-size: 30px; }
+
+}
+
+
+/* =============================================================
+   19. RESPONSIVO — MOBILE PEQUENO (≤ 480px)
+============================================================= */
+
+@media (max-width: 480px) {
+
+    .logo             { font-size: 1.4rem; }
+    .section-title h2 { font-size: 2rem; }
+    .slide-content h1 { font-size: 2rem; }
+
+    .modal-text-side h2 {
+        font-size: 1.5rem;
+    }
+
+}
+
+
+/* =============================================================
+   20. PÁGINA POLÍTICA DE PRIVACIDADE
+============================================================= */
+
+.privacy-content {
+    max-width: 900px;
+    margin: auto;
+    background: #111;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(225, 6, 0, .15);
+}
+
+.privacy-content p {
+    color: #d0d0d0;
+    line-height: 2;
+}
+
+.privacy-content span {
+    color: var(--red);
+    font-weight: 700;
+}
+
+.privacy-content ul {
+    margin-top: 20px;
+    padding-left: 25px;
+}
+
+.privacy-content li {
+    color: #d0d0d0;
+    margin-bottom: 12px;
+}
+
+/* Seções internas da política de privacidade */
+.privacy-section {
+    margin-bottom: 40px;
+}
+
+.privacy-section:last-child {
+    margin-bottom: 0;
+}
+
+.privacy-section-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(225, 6, 0, .3);
+}
+
+.privacy-section-title .privacy-index {
+    color: var(--red);
+    margin-right: 8px;
+}
+
+.privacy-section p + p {
+    margin-top: 14px;
+}
+
+.privacy-section ul {
+    margin-top: 14px;
+    margin-bottom: 14px;
+    padding-left: 22px;
+}
+
+.privacy-section ul li {
+    list-style: disc;
+    color: #d0d0d0;
+    margin-bottom: 10px;
+    line-height: 1.8;
+}
+
+.privacy-intro {
+    font-size: 1.05rem;
+    color: #bbb;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    line-height: 2;
+}
+
+.privacy-date {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.07);
+    color: #888;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+
+/* =============================================================
+   21. FAQ
+============================================================= */
+
+.faq-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.faq-item {
+    margin-bottom: 15px;
+    overflow: hidden;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.faq-question {
+    width: 100%;
+    border: none;
+    background: #111;
+    color: #fff;
+    padding: 25px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.faq-question i {
+    color: var(--red);
+    transition: transform .3s ease;
+    flex-shrink: 0;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: .4s ease;
+    background: #1a1a1a;
+}
+
+.faq-answer p {
+    padding: 25px;
+    color: #d0d0d0;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 300px;
+}
