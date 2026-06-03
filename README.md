@@ -6,8 +6,7 @@ Bem-vindo ao repositório da landing page oficial da **Garage 7**. Este projeto 
 
 ## ✨ Preview do Projeto
 
-<video src="assets/preview-garage7.mp4" width="100%" controls autoplay loop muted></video>
-
+<video src="assets/videos/preview-garage7.mp4" width="100%" controls autoplay loop muted></video>
 ---
 
 ## ✨ O Projeto
